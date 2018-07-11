@@ -41,6 +41,7 @@ extern "C" {
 #endif
 
 #include <aws_iot_mqtt_client.h>
+#include "aws_iot_log.h"
 #include "aws_iot_mqtt_client_common_internal.h"
 
 /* Max length of packet header */
@@ -315,7 +316,7 @@ IoT_Error_t aws_iot_mqtt_internal_send_packet(AWS_IoT_Client *pClient, size_t le
 		FUNC_EXIT_RC(SUCCESS);
 	}
 
-	FUNC_EXIT_RC(rc) 
+	FUNC_EXIT_RC(rc)
 }
 
 static IoT_Error_t _aws_iot_mqtt_internal_readWrapper( AWS_IoT_Client *pClient, size_t offset, size_t size, Timer *pTimer, size_t * read_len ) {
@@ -344,7 +345,7 @@ static IoT_Error_t _aws_iot_mqtt_internal_readWrapper( AWS_IoT_Client *pClient, 
         rc = SUCCESS;
     }
 
- 
+
 
     return rc;
 }
@@ -404,8 +405,8 @@ static IoT_Error_t _aws_iot_mqtt_internal_read_packet(AWS_IoT_Client *pClient, T
 	rc = _aws_iot_mqtt_internal_decode_packet_remaining_len(pClient, &offset, &rem_len, pTimer);
 	if(SUCCESS != rc) {
 		return rc;
-	} 
-     
+	}
+
 	/* if the buffer is too short then the message will be dropped silently */
 	if((rem_len + offset) >= pClient->clientData.readBufSize) {
 		bytes_to_be_read = pClient->clientData.readBufSize;
